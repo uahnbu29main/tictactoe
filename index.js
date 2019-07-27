@@ -3,11 +3,11 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const path = require('path');
+const PORT = process.env.PORT || 5000;
 
-app.set('port', process.env.PORT || 5000);
 app.use('/static', express.static(__dirname + '/static'));
 app.get('/', (req,res) => res.sendFile(path.join(__dirname, 'index.html')));
-server.listen(process.env.port || 5000, () => console.log('Server on port 5000 started'));
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 let rooms = [];
 let gameOver = (room,player) => {
